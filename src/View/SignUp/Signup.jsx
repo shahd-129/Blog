@@ -1,12 +1,12 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import Joi from 'joi';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Signup() {
   const [inputValue, setInputValue] = useState({
     email: '',
-    name: '',   
+    name: '',
     age: '',
     password: ''
   });
@@ -43,7 +43,7 @@ export default function Signup() {
     const validationErrors = {};
     console.log(validationErrors);
     for (let item of result.error.details) {
-   
+
       validationErrors[item.path[0]] = item.message;
     }
     return validationErrors;
@@ -56,7 +56,7 @@ export default function Signup() {
     const errors = validate(inputValue);
     setErrors(errors);
     if (errors) return;
-   
+
     else navigate("/login");
   }
 
@@ -64,87 +64,155 @@ export default function Signup() {
     setInputValue((prev) => ({
       ...prev,
       [identifier]: event.target.value
-    
+
     }));
     // console.log(identifier);
   }
 
+
+  function backToLogin() {
+    navigate("/login");
+  }
+
   return (
     <>
+
       <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{
-          '& > :not(style)': { m: 1, width: '60%' },
-        }}
-        textAlign="center"
-        p={5}
-        noValidate
-        autoComplete="off"
+        height={500}
+        width={500}
+        my={5}
+        mx={"auto"}
+        display="flex"
+        alignItems="center"
+        justifyContent={"center"}
+        gap={4}
+        p={2}
+        borderRadius={4}
+        sx={{ border: '1px solid grey' }}
       >
-        <Typography
-          variant="h3"
-          component="h2"
+
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            '& > :not(style)': { m: 1, width: '100%' },
+          }}
           textAlign="center"
-          marginY={4}
+          p={5}
+          noValidate
+          autoComplete="off"
         >
-          SignUp Now....
-        </Typography>
+          <Typography
+            variant="h3"
+            component="h2"
+            textAlign="center"
+            marginY={4}
+          >
+            SignUp Now....
+          </Typography>
 
-        <TextField
-          value={inputValue.name}
-          name="name"
-          id="name"
-          type="text"
-          label="Name"
-          variant="outlined"
-          onChange={(event) => handleChange(event, 'name')}
-          error={!!errors.name}
-        helperText={errors.name}
-        />
-        <TextField
-          value={inputValue.age}
-          name="age"
-          id="age"
-          type="number"
-          label="Age"
-          variant="outlined"
-          onChange={(event) => handleChange(event, 'age')}
-          error={!!errors.age}
-        helperText={errors.age}
-        />
-        <TextField
-          value={inputValue.email}
-          name="email"
-          id="email"
-          type="email"
-          variant="outlined"
-          label="Email"
-          onChange={(event) => handleChange(event, 'email')}
-          error={!!errors.email}
-        helperText={errors.email}
-        />
-        <TextField
-          value={inputValue.password}
-          id="password"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          name="password"
-          onChange={(event) => handleChange(event, 'password')}
-          variant="outlined"
-          error={!!errors.password}
-        helperText={errors.password}
-        />
+          <TextField
+            value={inputValue.name}
+            name="name"
+            id="name"
+            type="text"
+            label="Name"
+            variant="outlined"
+            sx={{ borderRadius: "50%" }}
+            onChange={(event) => handleChange(event, 'name')}
+            error={!!errors.name}
+            helperText={errors.name}
+            color="secondary"
+          />
+          <TextField
+            value={inputValue.age}
+            name="age"
+            id="age"
+            type="number"
+            label="Age"
+            variant="outlined"
+            onChange={(event) => handleChange(event, 'age')}
+            error={!!errors.age}
+            helperText={errors.age}
+            color="secondary"
+          />
+          <TextField
+            value={inputValue.email}
+            name="email"
+            id="email"
+            type="email"
+            variant="outlined"
+            label="Email"
+            onChange={(event) => handleChange(event, 'email')}
+            error={!!errors.email}
+            helperText={errors.email}
+            color="secondary"
+          />
+          <TextField
+            value={inputValue.password}
+            id="password"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            name="password"
+            onChange={(event) => handleChange(event, 'password')}
+            variant="outlined"
+            error={!!errors.password}
+            helperText={errors.password}
+            color="secondary"
+          />
 
-        <Button
-          color="secondary"
-          type="submit"
-          variant="contained"
-        >
-          Sign Up
-        </Button>
+          <Button
+            color="secondary"
+            type="submit"
+            variant="contained"
+          >
+            Sign Up
+          </Button>
+          <Link
+            component="button"
+            variant="body2"
+            color='secondary'
+            onClick={() => {
+              backToLogin();
+            }}
+          >
+            Already have an account?
+          </Link>
+        </Box>
+
       </Box>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

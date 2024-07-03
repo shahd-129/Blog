@@ -26,8 +26,8 @@ function ResponsiveDrawer(props) {
 
 
   const navItems = [
-    { label: 'signup', link: '/signup' },
-    { label: 'login', link: '/login' },
+
+    { label: 'Logout', link: '/login' }
   ];
 
   const handleDrawerClose = () => {
@@ -50,7 +50,7 @@ function ResponsiveDrawer(props) {
       <Toolbar />
       <List>
 
-     
+
         <ListItemButton onClick={() => {
           navigate("/home")
         }}>
@@ -74,7 +74,7 @@ function ResponsiveDrawer(props) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar
-      color='secondary'
+        color='secondary'
         position="fixed"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
@@ -94,13 +94,13 @@ function ResponsiveDrawer(props) {
           <Typography variant="h6" noWrap component="div">
             Blog App
           </Typography>
-          <Box sx={{ display: 'flex' , ml:"auto"}}>
-          {navItems.map((item, index) => (
-            <Button key={index} color="inherit" href={item.link}>
-              {item.label}
-            </Button>
-          ))}
-        </Box>
+          <Box sx={{ display: 'flex', ml: "auto" }}>
+            {navItems.map((item, index) => (
+              <Button key={index} color="inherit" href={item.link}>
+                {item.label}
+              </Button>
+            ))}
+          </Box>
 
         </Toolbar>
       </AppBar>

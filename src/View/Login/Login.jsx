@@ -3,6 +3,7 @@ import Joi from 'joi';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+
 export default function Signup() {
   const [inputValue, setInputValue] = useState({
     email: '',
@@ -57,68 +58,95 @@ export default function Signup() {
   }
   return (
     <>
+
       <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{
-          '& > :not(style)': { m: 1, width: '60%' },
-        }}
-        textAlign="center"
-        p={5}
-        noValidate
-        autoComplete="off"
+        height={400}
+        width={400}
+        my={6}
+        mx={"auto"}
+        display="flex"
+        alignItems="center"
+        justifyContent={"center"}
+        gap={4}
+        p={2}
+        borderRadius={4}
+        sx={{ border: '1px solid grey' }}
+
       >
-        <Typography
-          variant="h3"
-          component="h2"
-          textAlign="center"
-          marginY={4}
-        >
-          Login Now....
-        </Typography>
 
-        <TextField
-          value={inputValue.email}
-          name="email"
-          id="email"
-          type="email"
-          variant="outlined"
-          label="Email"
-          onChange={(event) => handleChange(event, 'email')}
-          error={!!errors.email}
-          helperText={errors.email}
-        />
-        <TextField
-          value={inputValue.password}
-          id="password"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          name="password"
-          onChange={(event) => handleChange(event, 'password')}
-          variant="outlined"
-          error={!!errors.password}
-          helperText={errors.password}
-        />
-
-        <Button style={{ width: '50%' }}
-          color="secondary"
-          type="submit"
-          variant="contained"
-        >
-          Sign Up
-        </Button>
-        <Link
-          component="button"
-          variant="body2"
-          color='secondary'
-          onClick={() => {
-            backToSignup();
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            '& > :not(style)': { m: 1, width: '100%' },
           }}
+          textAlign="center"
+          p={5}
+          noValidate
+          autoComplete="off"
         >
-          Don't have an account?
-        </Link>
+          <Typography
+            variant="h3"
+            component="h2"
+            textAlign="center"
+            marginY={4}
+          >
+            Login Now....
+          </Typography>
+
+          <TextField
+            value={inputValue.email}
+            name="email"
+            id="email"
+            type="email"
+            variant="outlined"
+            label="Email"
+            onChange={(event) => handleChange(event, 'email')}
+            error={!!errors.email}
+            helperText={errors.email}
+            color="secondary"
+          />
+          <TextField
+            value={inputValue.password}
+            id="password"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            name="password"
+            onChange={(event) => handleChange(event, 'password')}
+            variant="outlined"
+            error={!!errors.password}
+            helperText={errors.password}
+            color="secondary"
+          />
+
+          <Button style={{ width: '100%' }}
+            color="secondary"
+            type="submit"
+            variant="contained"
+          >
+            Sign Up
+          </Button>
+          <Link
+            component="button"
+            variant="body2"
+            color='secondary'
+            onClick={() => {
+              backToSignup();
+            }}
+          >
+            Don't have an account?
+          </Link>
+        </Box>
+
       </Box>
+
+
+
+
+
+
+
     </>
   );
 }
