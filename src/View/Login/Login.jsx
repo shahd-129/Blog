@@ -1,4 +1,5 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { useLoginMutation } from '../../Api/Auth';
 import Joi from 'joi';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,6 +13,7 @@ export default function Signup() {
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const [login, { isLoading, error }] = useLoginMutation()
   const validate = (data) => {
 
     const schema = Joi.object({
@@ -40,11 +42,22 @@ export default function Signup() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    // console.log(inputValue);
     const errors = validate(inputValue);
     setErrors(errors);
     if (errors) return;
-    else navigate("/");
+    login(inputValue)
+      .unwrap()
+      .then((response) => {
+        console.log('Success:', response);
+        setInputValue({
+          email: '',
+          password: ''
+        });
+        navigate("/home");
+      })
+      .catch((err) => {
+        console.error('API Error:', err);
+      });
   }
 
   function handleChange(event, identifier) {
@@ -70,10 +83,7 @@ export default function Signup() {
         gap={4}
         p={2}
         borderRadius={4}
-        sx={{ border: '1px solid grey' }}
-
-      >
-
+        sx={{ border: '1px solid grey' }}>
         <Box
           component="form"
           onSubmit={handleSubmit}
@@ -83,8 +93,7 @@ export default function Signup() {
           textAlign="center"
           p={5}
           noValidate
-          autoComplete="off"
-        >
+          autoComplete="off">
           <Typography
             variant="h3"
             component="h2"
@@ -94,6 +103,9 @@ export default function Signup() {
             Login Now....
           </Typography>
 
+
+
+          {error && <Typography sx={{ color: 'red' }}>{error.data.message}</Typography>}
           <TextField
             value={inputValue.email}
             name="email"
@@ -102,8 +114,8 @@ export default function Signup() {
             variant="outlined"
             label="Email"
             onChange={(event) => handleChange(event, 'email')}
-            error={!!errors.email}
-            helperText={errors.email}
+            error={!!errors?.email}
+            helperText={errors?.email}
             color="secondary"
           />
           <TextField
@@ -115,38 +127,31 @@ export default function Signup() {
             name="password"
             onChange={(event) => handleChange(event, 'password')}
             variant="outlined"
-            error={!!errors.password}
-            helperText={errors.password}
+            error={!!errors?.password}
+            helperText={errors?.password}
             color="secondary"
           />
+          {isLoading ?
+            <CircularProgress color="secondary" />
+            :
+            <>
+              <Button color="secondary" type="submit" variant="contained">
+                Login
+              </Button>
+              <Link
+                component="button"
+                variant="body2"
+                color='secondary'
+                onClick={() => {
+                  backToSignup();
+                }}
+              >
+                Don't have an account?
+              </Link>
+            </>}
 
-          <Button style={{ width: '100%' }}
-            color="secondary"
-            type="submit"
-            variant="contained"
-          >
-            Sign Up
-          </Button>
-          <Link
-            component="button"
-            variant="body2"
-            color='secondary'
-            onClick={() => {
-              backToSignup();
-            }}
-          >
-            Don't have an account?
-          </Link>
         </Box>
-
       </Box>
-
-
-
-
-
-
-
     </>
   );
 }
