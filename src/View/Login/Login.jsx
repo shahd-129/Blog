@@ -53,7 +53,11 @@ export default function Signup() {
           email: '',
           password: ''
         });
-        navigate("/home");
+        if (response?.message === 'success') {
+          localStorage.setItem('token', response.token);
+          navigate("/home");
+        }
+
       })
       .catch((err) => {
         console.error('API Error:', err);

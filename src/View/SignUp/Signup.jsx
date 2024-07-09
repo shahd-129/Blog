@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { validate } from 'util/joiValidation';
 
+
 export default function Signup() {
   const [inputValue, setInputValue] = useState({
     email: '',
@@ -14,7 +15,6 @@ export default function Signup() {
     password: '',
     rePassword: ''
   });
-
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -37,8 +37,10 @@ export default function Signup() {
           password: '',
           rePassword: ''
         });
+
         navigate("/login");
       })
+
       .catch((err) => {
         console.error(err);
       });
