@@ -5,8 +5,8 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://ecommerce.routemisr.com/api/v1/auth",
   }),
-  prepareHeaders: (headers, { getState }) => {
-    const token = getState().auth.token;
+  prepareHeaders: (headers) => {
+    const token = localStorage.getItem("token");
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
     }
@@ -16,3 +16,12 @@ export const authApi = createApi({
   endpoints: (builder) => ({})
 });
 
+
+
+// prepareHeaders: (headers, { getState }) => {
+//   const token = getState().auth.token;
+//   if (token) {
+//     headers.set('authorization', `Bearer ${token}`);
+//   }
+//   return headers;
+// },

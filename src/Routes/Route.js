@@ -9,6 +9,7 @@ import Signup from "View/SignUp/Signup";
 import Login from "View/Login/Login";
 import Home from "View/Home/Home";
 import AuthLayout from "Component/Layout/AuthLayout";
+import Gurd from "Component/Gurd/Gurd";
 
 export default function Route() {
   let router = createBrowserRouter([
@@ -19,7 +20,7 @@ export default function Route() {
     {
       path: "/home",
       element: <Layout />,
-      children: [{ path: "", element: <Home /> }],
+      children: [{ path: "", element: <Gurd><Home/></Gurd> }],
     },
     {
       path: "/",

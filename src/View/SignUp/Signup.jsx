@@ -1,5 +1,5 @@
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
-import { useSignUpMutation } from '../../Api/Auth';
+import { useSignUpMutation } from '../../Api/Authapi';
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
