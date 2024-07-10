@@ -45,6 +45,12 @@ function ResponsiveDrawer(props) {
     }
   };
 
+
+function Logout() {
+  localStorage.removeItem('token');
+  navigate('/login')
+}
+
   const drawer = (
     <div>
       <Toolbar />
@@ -94,9 +100,10 @@ function ResponsiveDrawer(props) {
           <Typography variant="h6" noWrap component="div">
             Blog App
           </Typography>
+          
           <Box sx={{ display: 'flex', ml: "auto" }}>
             {navItems.map((item, index) => (
-              <Button key={index} color="inherit" href={item.link}>
+              <Button key={index} onClick={Logout} color="inherit" href={item.link}>
                 {item.label}
               </Button>
             ))}
