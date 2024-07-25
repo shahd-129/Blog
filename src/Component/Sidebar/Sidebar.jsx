@@ -14,11 +14,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { clearToken } from '../../Redux/tokenSlice/tokenSlice';
 
 
 function ResponsiveDrawer(props) {
   const drawerWidth = 240;
   let navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -47,7 +50,7 @@ function ResponsiveDrawer(props) {
 
 
 function Logout() {
-  localStorage.removeItem('token');
+ dispatch(clearToken())
   navigate('/login')
 }
 
@@ -124,7 +127,7 @@ function Logout() {
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },

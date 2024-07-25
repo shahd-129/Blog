@@ -33,10 +33,6 @@ export const validate = (data) => {
           "Password must start with an uppercase letter and be 6-11 characters long",
         "any.required": "Password is required",
       }),
-    rePassword: Joi.any().valid(Joi.ref("password")).required().messages({
-      "any.only": "Passwords do not match",
-      "any.required": "Re-Password is required",
-    }),
   });
 
   const result = schema.validate(data, { abortEarly: false });

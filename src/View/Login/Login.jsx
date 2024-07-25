@@ -3,6 +3,8 @@ import { useLoginMutation } from '../../Api/Authapi';
 import Joi from 'joi';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken } from '../../Redux/tokenSlice/tokenSlice';
 
 
 export default function Signup() {
@@ -12,7 +14,9 @@ export default function Signup() {
   });
 
   const [errors, setErrors] = useState({});
+  const token = useSelector((state) => state.token.token);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [login, { isLoading, error }] = useLoginMutation()
   const validate = (data) => {
 
@@ -53,8 +57,9 @@ export default function Signup() {
           email: '',
           password: ''
         });
-        if (response?.message === 'success') {
-          localStorage.setItem('token', response.token);
+        if (response?.message === 'Login Successfully') {
+          const newToken = response.token;
+          dispatch(setToken(newToken));
           navigate("/home");
         }
 
@@ -159,10 +164,3 @@ export default function Signup() {
     </>
   );
 }
-
-
-
-
-
-
-

@@ -12,8 +12,7 @@ export default function Signup() {
     email: '',
     name: '',
     phone: '',
-    password: '',
-    rePassword: ''
+    password: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -23,6 +22,7 @@ export default function Signup() {
   function handleSubmit(event) {
     event.preventDefault();
     const validationErrors = validate(inputValue);
+    console.log(inputValue);
     setErrors(validationErrors);
     if (validationErrors) return;
 
@@ -32,10 +32,9 @@ export default function Signup() {
         console.log(response);
         setInputValue({
           email: '',
-          name: '',
+          userName: '',
           phone: '',
           password: '',
-          rePassword: ''
         });
 
         navigate("/login");
@@ -51,7 +50,7 @@ export default function Signup() {
     setInputValue((prev) => ({
       ...prev,
       [identifier]: event.target.value
-
+    
     }));
   }
 
@@ -145,19 +144,6 @@ export default function Signup() {
             variant="outlined"
             error={!!errors?.password}
             helperText={errors?.password}
-            color="secondary"
-          />
-          <TextField
-            value={inputValue.rePassword}
-            id="rePassword"
-            label="Re-Password"
-            type="password"
-            autoComplete="current-password"
-            name="rePassword"
-            onChange={(event) => handleChange(event, 'rePassword')}
-            variant="outlined"
-            error={!!errors?.rePassword}
-            helperText={errors?.rePassword}
             color="secondary"
           />
           {isLoading ?
