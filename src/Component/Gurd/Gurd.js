@@ -1,48 +1,40 @@
-// import { Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
+import HttpService from "util/HttpService";
 
-// export default function Gurd({children}) {
+export default function Gurd() {
+  const [loading, setLoading] = useState(true);
 
-//     if(!!localStorage.getItem("token")){
-//             return children
-//     }
-//     else {
-//         return <Navigate to="/login"/>
-//     }
-// }
-// // ////////////////////////////////////////////////////////////////////
+  const checkTokenValidity = async () => {
+    const token = localStorage.getItem("token");
 
+    if (token) {
+      try {
+        const response = await HttpService.get(
+          "http://localhost:3000/user/validate",
+          {}
+        );
 
-// import React, { useEffect, useState } from "react";
-// import { Navigate } from "react-router-dom";
-// import axios from "axios";
+        if (response.status === 200 && response.data.valid) {
+          <Navigate to="/home" />;
+        } else {
+          <Navigate to="/login" />;
+        }
+      } catch (error) {
+        console.error("Error validating token:", error);
+      }
+    }
+    setLoading(false);
+  };
 
-// export default function Guard({ children }) {
-//   const [isAuthenticated, setIsAuthenticated] = useState(null);
+  useEffect(() => {
+    checkTokenValidity();
+  }, []);
 
-//   const checkTokenValidity = async () => {
-//     const token = localStorage.getItem("token");
+  const spinner = <CircularProgress color="secondary" />;
 
-//     if (token) {
-//       const response = await axios.get(
-//         "http://localhost:3000/user/validate",
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         }
-//       );
-//         console.log(response);
-//       if ( response.status === 200 && response.data.valid) {
-
-//         setIsAuthenticated(true);
-//       } else {
-//         setIsAuthenticated(false);
-//       }
-//     }
-//   };
-
-//   useEffect(() => {
-//     checkTokenValidity();
-//   }, []);
-//   return isAuthenticated ? children : <Navigate to="/login" />;
-// }
+  if (loading) {
+    return spinner;
+  }
+}

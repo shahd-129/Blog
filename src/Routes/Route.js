@@ -20,7 +20,16 @@ export default function Route() {
     {
       path: "/home",
       element: <Layout />,
-      children: [{ path: "", element: <Gurd><Home/></Gurd> }],
+      children: [
+        {
+          path: "",
+          element: (
+            <Gurd>
+              <Home />
+            </Gurd>
+          ),
+        },
+      ],
     },
     {
       path: "/",
